@@ -27,3 +27,15 @@ end
 
 -- SendMailNameEditBox:SetText(XXXXX)
 -- SendMailNameEditBox:HighlightText()
+
+local alts = CreateFrame("Frame", "F_alts", MailFrame)
+alts:SetWidth(25)
+alts:SetHeight(25)
+alts:SetPoint("TOPLEFT", "MailFrame", "TOPRIGHT")
+alts::SetBackdrop({
+			bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]],
+			edgeFile = [[Interface\DialogFrame\UI-DialogBox-Border]],
+			tile = true, tileSize = 16, edgeSize = 16,
+			insets = { left = 3, right = 3, top = 5, bottom = 3 }
+		})
+alts:SetBackdropColor(0,0,0,1)		
