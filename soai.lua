@@ -19,7 +19,8 @@ function soai:OnEvent(event, arg1)
 		local level = UnitLevel("player")
 		local _, class = UnitClass("player")
 
-		local btn_high = 60
+		local btn_high = 30
+		local btn_width = 320
 		local btn_count = 0
 
 		if not realm or not faction or not playername or not level or not class then return end
@@ -33,7 +34,7 @@ function soai:OnEvent(event, arg1)
 		temp.class = class
 
 		local alts = CreateFrame("Frame", "F_alts", MailFrame)
-		alts:SetWidth(250)
+		alts:SetWidth(btn_width+4)
 		alts:SetPoint("TOPLEFT", "MailFrame", "TOPRIGHT")
 		alts:SetBackdrop({
 					bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]],
@@ -42,10 +43,10 @@ function soai:OnEvent(event, arg1)
 
 		for k, v in pairs(soaiDB) do
 			local b1 = CreateFrame("Button", nil , alts, "StaticPopupButtonTemplate");
-			b1:SetSize(246, btn_high);
+			b1:SetSize(btn_width, btn_high);
 			b1:SetPoint("TOPLEFT","F_alts","TOPLEFT",2,-btn_high * btn_count);
 			btn_count = btn_count + 1
-			b1:SetText(k .. "\n" .. "LV." .. v.level .. "   " .. v.class);
+			b1:SetText(k .. " LV." .. v.level .. " " .. v.class);
 			b1:SetScript("OnClick", function()
 				SendMailNameEditBox:SetText(k)
 				SendMailNameEditBox:HighlightText()
