@@ -1,3 +1,6 @@
+SlashCmdList['RELOAD'] = function() ReloadUI() end 
+SLASH_RELOAD1 = '/rl'
+
 soai = {}
 _G["soai"] = soai
 
@@ -29,13 +32,19 @@ end
 -- SendMailNameEditBox:HighlightText()
 
 local alts = CreateFrame("Frame", "F_alts", MailFrame)
-alts:SetWidth(25)
-alts:SetHeight(25)
+alts:SetWidth(250)
+alts:SetHeight(MailFrame:GetHeight())
 alts:SetPoint("TOPLEFT", "MailFrame", "TOPRIGHT")
-alts::SetBackdrop({
+alts:SetBackdrop({
 			bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]],
-			edgeFile = [[Interface\DialogFrame\UI-DialogBox-Border]],
-			tile = true, tileSize = 16, edgeSize = 16,
-			insets = { left = 3, right = 3, top = 5, bottom = 3 }
 		})
-alts:SetBackdropColor(0,0,0,1)		
+alts:SetBackdropColor(0,0,0,1)
+
+
+local b1 = CreateFrame("Button", nil , alts, "StaticPopupButtonTemplate");
+b1:SetSize(246, 30);
+b1:SetPoint("TOPLEFT","F_alts","TOPLEFT",2,0);
+b1:SetText(playername .. "-" .. realm);
+b1:SetScript("OnClick", function()
+	SendMailNameEditBox:SetText(b1:GetText())
+	end)
