@@ -13,6 +13,21 @@ OO结构：
 	文本： soai.alts.btn0.str, 系统默认使用 FontString 这个类, 我懒得去看基类的代码 就这样吧
 ]]--
 
+local class_cn = {}
+class_cn["WARRIOR"] = "战士"
+class_cn["DEMONHUNTER"] = "DH"
+class_cn["PALADIN"] = "圣骑"
+class_cn["MONK"] = "武僧"
+class_cn["WARLOCK"] = "术士"
+class_cn["HUNTER"] = "猎人"
+class_cn["ROGUE"] = "盗贼"
+class_cn["SHAMAN"] = "萨满"
+class_cn["MAGE"] = "法师"
+class_cn["PRIEST"] = "牧师"
+class_cn["DRUID"] = "小德"
+class_cn["DEATHKNIGHT"] = "死骑"
+
+
 function soai:OnEvent(event, arg1)
 	if event == "ADDON_LOADED" and arg1 == "soai" then
 		print ("soai addon load")
@@ -58,10 +73,10 @@ function soai:OnEvent(event, arg1)
 			b1.str = b1:CreateFontString(nil, "ARTWORK")
 			b1.str:SetSize(btn_width-10, btn_high)
 			b1.str:SetPoint("TOPLEFT", b1, 5,0)
-			b1.str:SetFont("fonts\\ARHei.ttf", 14)
+			b1.str:SetFont("fonts\\ARHei.ttf", 16)
 			b1.str:SetJustifyH("LEFT")
 			b1.str:SetTextColor(0,1,1)
-			b1.str:SetText(k .. " LV." .. v.level .. " " .. v.class)
+			b1.str:SetText(k .. " LV." .. v.level .. " " .. class_cn[v.class])
 
 			b1:SetScript("OnMouseUp", function(f)
 				SendMailNameEditBox:SetText(k)
