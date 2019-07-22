@@ -47,14 +47,19 @@ function soai:OnEvent(event, arg1)
 
 		if not realm or not faction or not playername or not level or not class then return end
 
-		soaiDB[playername .. "-" .. realm] = {}
+		soaiDB[playername .. "-" .. realm] = soaiDB[playername .. "-" .. realm] or {}
 		local temp = soaiDB[playername .. "-" .. realm]
 		temp.playername = playername
 		temp.realm = realm
 		temp.faction = faction
 		temp.level = level
 		temp.class = class
-
+		
+		SlashCmdList['SO'] = function(ps) 
+			temp.ps = tostring(ps); 
+			print(temp.ps);
+		end 
+		SLASH_SO1 = '/so'
 
 		soai.alts = CreateFrame("Frame", nil , MailFrame)
 		soai.alts:SetWidth(btn_width)
@@ -75,8 +80,8 @@ function soai:OnEvent(event, arg1)
 			b1.str:SetPoint("TOPLEFT", b1, 5,0)
 			b1.str:SetFont("fonts\\ARHei.ttf", 16)
 			b1.str:SetJustifyH("LEFT")
-			b1.str:SetTextColor(0,1,1)
-			b1.str:SetText(k .. " LV." .. v.level .. " " .. class_cn[v.class])
+			local temp_ps = v.ps or ""
+			b1.str:SetText(k .. " > " .. temp_ps)
 
 			b1:SetScript("OnMouseUp", function(f)
 				SendMailNameEditBox:SetText(k)
@@ -84,7 +89,7 @@ function soai:OnEvent(event, arg1)
 				end)
 			b1:SetScript("OnEnter", function(f)
 				f:SetBackdrop({bgFile = "Interface\\Buttons\\WHITE8x8",})
-				f:SetBackdropColor(0,0.6,0.6,0.3)
+				f:SetBackdropColor(0,0.63,0.9,0.6)
 				end)
 			b1:SetScript("OnLeave", function(f)
 				f:SetBackdrop(nil)
