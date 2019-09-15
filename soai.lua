@@ -1,8 +1,7 @@
-SlashCmdList['RELOAD'] = function() ReloadUI() end 
+﻿SlashCmdList['RELOAD'] = function() ReloadUI() end 
 SLASH_RELOAD1 = '/rl'
 
 local soai = CreateFrame("Frame")
-_G["soai"] = soai
 soai:RegisterEvent("ADDON_LOADED")
 
 --[[ 
@@ -14,18 +13,18 @@ OO结构：
 ]]--
 
 local class_cn = {}
-class_cn["WARRIOR"] = "战士"
-class_cn["DEMONHUNTER"] = "DH"
-class_cn["PALADIN"] = "圣骑"
-class_cn["MONK"] = "武僧"
-class_cn["WARLOCK"] = "术士"
-class_cn["HUNTER"] = "猎人"
-class_cn["ROGUE"] = "盗贼"
-class_cn["SHAMAN"] = "萨满"
-class_cn["MAGE"] = "法师"
-class_cn["PRIEST"] = "牧师"
-class_cn["DRUID"] = "小德"
-class_cn["DEATHKNIGHT"] = "死骑"
+class_cn["WARRIOR"] = "|cFFC79C6E战士|r"
+class_cn["DEMONHUNTER"] = "|cFFA330C9DH|r"
+class_cn["PALADIN"] = "|cFFF58CBA圣骑|r"
+class_cn["MONK"] = "|cFF00FF96武僧|r"
+class_cn["WARLOCK"] = "|cFF8787ED术士|r"
+class_cn["HUNTER"] = "|cFFABD473猎人|r"
+class_cn["ROGUE"] = "|cFFFFF569盗贼|r"
+class_cn["SHAMAN"] = "|cFF0070DE萨满|r"
+class_cn["MAGE"] = "|cFF40C7EB法师|r"
+class_cn["PRIEST"] = "|cFFFFFFFF牧师|r"
+class_cn["DRUID"] = "|cFFFF7D0A小德|r"
+class_cn["DEATHKNIGHT"] = "|cFFC41F3B死骑|r"
 
 
 function soai:OnEvent(event, arg1)
@@ -41,11 +40,12 @@ function soai:OnEvent(event, arg1)
 		local level = UnitLevel("player")
 		local _, class = UnitClass("player")
 
-		local btn_high = 30
-		local btn_width = 300
+		local btn_high = 25
+		local btn_width = 400
 		local btn_count = 0
+		local font_size = 16
 
-		if not realm or not faction or not playername or not level or not class then return end
+		if not realm or not faction or not playername or not level or not class or realm=="格瑞姆巴托" then return end
 
 		soaiDB[playername .. "-" .. realm] = soaiDB[playername .. "-" .. realm] or {}
 		local temp = soaiDB[playername .. "-" .. realm]
@@ -78,10 +78,10 @@ function soai:OnEvent(event, arg1)
 			b1.str = b1:CreateFontString(nil, "ARTWORK")
 			b1.str:SetSize(btn_width-10, btn_high)
 			b1.str:SetPoint("TOPLEFT", b1, 5,0)
-			b1.str:SetFont("fonts\\ARHei.ttf", 16)
+			b1.str:SetFont("fonts\\ARHei.ttf", font_size)
 			b1.str:SetJustifyH("LEFT")
 			local temp_ps = v.ps or ""
-			b1.str:SetText(k .. " > " .. temp_ps)
+			b1.str:SetText(k .. "(" .. class_cn[v.class] .. "): " .. temp_ps)
 
 			b1:SetScript("OnMouseUp", function(f)
 				SendMailNameEditBox:SetText(k)
